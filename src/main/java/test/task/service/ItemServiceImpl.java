@@ -8,14 +8,14 @@ import test.task.repository.ItemRepository;
 import java.util.List;
 
 @Service("shopService")
-public class ShopServiceImpl implements ShopService {
+public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
-    
 
     @Override
     public Item getItemDataById(long id) {
+
         return (Item) itemRepository.findOne(id);
     }
 
@@ -28,6 +28,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<Item> getAllItems() {
+
         return itemRepository.findAll();
     }
 }
