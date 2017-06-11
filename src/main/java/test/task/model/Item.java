@@ -1,28 +1,33 @@
 package test.task.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity
-public class Item {
+@Table(name = "items")
+public class Item implements Serializable{
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String mpn;
-    private String status;
-    private ShopDescription shopDescription;
 
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Stock stock;
+
+    /*@OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    List<Stock> stockDetails = new ArrayList<>();
+*/
     public Item() {
     }
 
-    public Item(String mpn, String status,
-                ShopDescription shopDescription) {
-        this.mpn = mpn;
-        this.status = status;
-        this.shopDescription = shopDescription;
+    public Item(Stock stock) {
+        this.mpn = UUID.randomUUID().toString();
+        this.stock = stock;
     }
+
 
     public Long getId() {
         return id;
@@ -40,19 +45,13 @@ public class Item {
         this.mpn = mpn;
     }
 
-    public String getStatus() {
-        return status;
+    public Stock getStock() {
+        return stock;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
-    public ShopDescription getShopDescription() {
-        return shopDescription;
-    }
 
-    public void setShopDescription(ShopDescription shopDescription) {
-        this.shopDescription = shopDescription;
-    }
 }
