@@ -22,6 +22,13 @@ public class ShopController {
         return service.getAllItems();
     }
 
+    @RequestMapping("/hello/{name}")
+    String hello(@PathVariable String name) {
+
+        return "Hi "+name+" !";
+
+    }
+
     @RequestMapping(value = "/getprice{mpn}", method = RequestMethod.GET)
     public Item getItem(@PathVariable("mpn") String mpn) {
 
